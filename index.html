@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <title>Currency Converter</title>
   <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.7/angular.js"></script>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/minty/bootstrap.min.css">
   <style>
@@ -27,35 +28,34 @@
     <div class="input-group mb-2">
       <div class="input-group-prepend">
         <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">Base Currency</button>
+          aria-haspopup="true" aria-expanded="false">{{baseCurrency}}</button>
         <div class="dropdown-menu">
-          <a class="dropdown-item" href="#" ng-repeat="item in currencyList">{{item}}</a>
+          <a class="dropdown-item" href="#" ng-repeat="item in currencyList" ng-click="changeTargetCurrency($event, item)">{{item}}</a>
         </div>
       </div>
-      <input type="text" class="form-control" aria-label="Text input with dropdown button"
+      <input type="number" class="form-control" aria-label="Text input with dropdown button"
         ng-model="currencyFromAmmount" ng-change="compute()">
     </div>
+    <i class="fas fa-arrows-alt-v "></i>
     <div class="input-group">
       <input type="text" class="form-control" aria-label="Text input with dropdown button" ng-model="currencyToAmmount"
         disabled>
       <div class="input-group-append">
         <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">{{currency}}</button>
+          aria-haspopup="true" aria-expanded="false">{{targetCurrency}}</button>
         <div class="dropdown-menu">
           <a class="dropdown-item" href="#" ng-repeat="item in currencyList"
-            ng-click="changeTargetCurrency(item)">{{item}}</a>
+            ng-click="changeTargetCurrency($event, item)">{{item}}</a>
         </div>
       </div>
     </div>
     <div class="dropdown text-center m-2">
       <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
         aria-haspopup="true" aria-expanded="false">
-        Comission
+        {{comission}}
       </a>
       <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-        <a class="dropdown-item" href="#">2%</a>
-        <a class="dropdown-item" href="#">5%</a>
-        <a class="dropdown-item" href="#">10%</a>
+        <a class="dropdown-item" href="#" ng-repeat="elem in persentagesList" ng-click="changePersantage(elem)">{{elem}}</a>
       </div>
     </div>
   </div>
