@@ -5,7 +5,6 @@
   <meta charset="utf-8">
   <title>Currency Converter</title>
   <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.7/angular.js"></script>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/minty/bootstrap.min.css">
   <style>
@@ -22,10 +21,13 @@
       <h1 class="display-4 text-center">Welcome to Currency Converter App</h1>
     </div>
     <div class="text-center m-5">
-      <input type="checkbox" checked data-toggle="toggle" data-on="Sell" data-off="Buy" data-onstyle="success"
-        data-offstyle="danger">
+      <input type="checkbox" data-toggle="toggle" data-on="{{feeDirection}}" data-off="{{feeDirection}}" data-onstyle="success"
+        data-offstyle="secondary" data-width="150" data-height="50" ng-model="feeDirection" ng-change="applyToggleDirection(feeDirection)">
     </div>
-    <div class="input-group mb-2">
+    <div class="text-center m-3">
+      <h4>0.00</h4>
+    </div>
+    <div class="input-group mb-2 text-left">
       <div class="input-group-prepend">
         <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">{{baseCurrency}}</button>
@@ -34,9 +36,8 @@
         </div>
       </div>
       <input type="number" class="form-control" aria-label="Text input with dropdown button"
-        ng-model="currencyFromAmmount" ng-change="compute()">
+        ng-model="currencyFromAmmount">
     </div>
-    <i class="fas fa-arrows-alt-v "></i>
     <div class="input-group">
       <input type="text" class="form-control" aria-label="Text input with dropdown button" ng-model="currencyToAmmount"
         disabled>
@@ -55,11 +56,12 @@
         {{comission}}
       </a>
       <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-        <a class="dropdown-item" href="#" ng-repeat="elem in persentagesList" ng-click="changePersantage(elem)">{{elem}}</a>
+        <a class="dropdown-item" href="#" ng-repeat="elem in persentagesList" ng-click="changePersantage(elem)">{{elem.label}}</a>
       </div>
     </div>
   </div>
   <script src="src/app.js"></script>
+  <script src="src/service.js"></script>
   <script src="src/controller.js"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

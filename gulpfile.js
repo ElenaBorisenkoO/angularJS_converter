@@ -39,7 +39,7 @@ gulp.task('build:html', function(done) {
 
 gulp.task('default', gulp.parallel('server', function(done) {
   gulp.watch(['index.html'], gulp.parallel('bs-reload'));
-  gulp.watch(['./src/js/*.js'], gulp.parallel('bs-reload'));
+  gulp.watch(['src/*.js'], gulp.parallel('bs-reload'));
   gulp.watch(['src/**/*.css'], gulp.parallel('bs-reload'));
 }));
 
