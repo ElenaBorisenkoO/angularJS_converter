@@ -20,9 +20,9 @@
     <div class="header">
       <h1 class="display-4 text-center">Welcome to Currency Converter App</h1>
     </div>
-    <div class="text-center m-5">
-      <input type="checkbox" data-toggle="toggle" data-on="{{feeDirection}}" data-off="{{feeDirection}}" data-onstyle="success"
-        data-offstyle="secondary" data-width="150" data-height="50" ng-model="feeDirection" ng-change="applyToggleDirection(feeDirection)">
+    <div class="text-center m-5" ng-click="test($event)" ng-model="indicator">
+      <input type="checkbox" data-toggle="toggle" data-on="SALE" data-off="BUY" data-onstyle="success"
+        data-offstyle="secondary" data-width="150" data-height="50">
     </div>
     <div class="text-center m-3">
       <h4>0.00</h4>
@@ -36,7 +36,7 @@
         </div>
       </div>
       <input type="number" class="form-control" aria-label="Text input with dropdown button"
-        ng-model="currencyFromAmmount">
+        ng-model="currencyFromAmmount" ng-change="calculateAmount()">
     </div>
     <div class="input-group">
       <input type="text" class="form-control" aria-label="Text input with dropdown button" ng-model="currencyToAmmount"
@@ -56,7 +56,7 @@
         {{comission}}
       </a>
       <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-        <a class="dropdown-item" href="#" ng-repeat="elem in persentagesList" ng-click="changePersantage(elem)">{{elem.label}}</a>
+        <a class="dropdown-item" href="#" ng-repeat="elem in persentagesList" ng-click="changePersantage(elem)">{{elem}}</a>
       </div>
     </div>
   </div>
