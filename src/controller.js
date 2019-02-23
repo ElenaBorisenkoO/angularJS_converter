@@ -9,8 +9,16 @@
       $scope.calculateAmount = function() {
         data.forEach(elem => {
           if (elem.ccy === $scope.baseCurrency) {
-            $scope.indicator === 'sale' ? $scope.currencyToAmmount = $scope.currencyFromAmmount * elem.sale :
-              $scope.currencyToAmmount = $scope.currencyFromAmmount * elem.buy;
+            if ($scope.targetCurrency === 'UAH') {
+              $scope.indicator === 'sale' ? $scope.currencyToAmmount = $scope.currencyFromAmmount * elem.sale :
+                $scope.currencyToAmmount = $scope.currencyFromAmmount * elem.buy;
+            } else {
+              $scope.find = data.find(el => el.ccy === $scope.targetCurrency);
+              console.log($scope.find);
+
+              $scope.indicator === 'sale' ? $scope.currencyToAmmount = $scope.currencyFromAmmount * $scope.find.sale / elem.sale :
+                $scope.currencyToAmmount = $scope.currencyFromAmmount * $scope.find.buy / elem.buy;
+            }
           }
         });
       };
