@@ -20,19 +20,19 @@
     <div class="header">
       <h1 class="display-4 text-center">Welcome to Currency Converter App</h1>
     </div>
-    <div class="text-center m-5" ng-click="test($event)" ng-model="indicator">
+    <div class="text-center m-5" ng-click="indicateToggle($event)" ng-model="indicator">
       <input type="checkbox" data-toggle="toggle" data-on="SALE" data-off="BUY" data-onstyle="success"
         data-offstyle="secondary" data-width="150" data-height="50">
     </div>
     <div class="text-center m-3">
-      <h4>0.00</h4>
+      <h4>Rate: {{rate}}</h4>
     </div>
     <div class="input-group mb-2 text-left">
       <div class="input-group-prepend">
         <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">{{baseCurrency}}</button>
         <div class="dropdown-menu">
-          <a class="dropdown-item" href="#" ng-repeat="item in currencyList" ng-click="changeTargetCurrency($event, item)">{{item}}</a>
+          <a class="dropdown-item" href="#" ng-repeat="item in currencyList | currencyFilter:targetCurrency" ng-click="changeTargetCurrency($event, item)">{{item}}</a>
         </div>
       </div>
       <input type="number" class="form-control" aria-label="Text input with dropdown button"
@@ -45,7 +45,7 @@
         <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">{{targetCurrency}}</button>
         <div class="dropdown-menu">
-          <a class="dropdown-item" href="#" ng-repeat="item in currencyList"
+          <a class="dropdown-item" href="#" ng-repeat="item in currencyList | currencyFilter:baseCurrency"
             ng-click="changeTargetCurrency($event, item)">{{item}}</a>
         </div>
       </div>

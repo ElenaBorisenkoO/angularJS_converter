@@ -1,6 +1,5 @@
 (function() {
   window.app.service('rateService', ['$http', function($http) {
-    console.log('requested API data');
     this.getRates = function() {
       return $http({
         method: 'GET',
@@ -8,4 +7,15 @@
       }).then(({ data }) => data);
     };
   }]);
+  window.app.filter('currencyFilter', function() {
+    return function(target, value) {
+      const result = [];
+      target.forEach(function(item) {
+        if (value !== item) {
+          result.push(item);
+        }
+      });
+      return result;
+    };
+  });
 }());
