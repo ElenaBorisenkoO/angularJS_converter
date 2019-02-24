@@ -35,12 +35,12 @@
           if ($scope.targetCurrency === 'UAH') {
             !$scope.indicator ? $scope.currencyToAmmount = $scope.currencyFromAmmount * elem.sale :
               $scope.currencyToAmmount = $scope.currencyFromAmmount * elem.buy;
-            !$scope.indicator ? $scope.rate = elem.sale : $scope.rate = elem.buy;
+            $scope.rate = !$scope.indicator ? Math.round((elem.sale) * 1000) / 1000 : Math.round((elem.buy) * 1000) / 1000;
           } else {
             $scope.findElem = $scope.data.find(el => el.ccy === $scope.targetCurrency);
             const rate = $scope.indicator ? $scope.convertRate($scope.findElem.buy, elem.buy) :
               $scope.convertRate($scope.findElem.sale, elem.sale);
-            $scope.rate = rate;
+            $scope.rate = Math.round((rate) * 1000) / 1000;
             $scope.currencyToAmmount = $scope.calculate($scope.currencyFromAmmount, rate);
           }
 
