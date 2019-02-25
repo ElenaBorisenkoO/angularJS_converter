@@ -5,5 +5,12 @@ You can check the latest buying and selling rate for following currencies:
 ### USD
 ### EUR
 ### UAH
-### GBP
-### RUB
+### BTC
+### RUR
+
+<h2> Getting started </h2>
+
+```bash
+npm i
+npm start
+```
