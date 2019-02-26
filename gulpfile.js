@@ -1,6 +1,5 @@
 const gulp = require('gulp');
 const concat = require('gulp-concat');
-const uglify = require('gulp-uglifyjs');
 const browserSync = require('browser-sync');
 
 gulp.task('server', function(done) {
@@ -19,7 +18,6 @@ gulp.task('bs-reload', function(done) {
 gulp.task('build:js', function(done) {
   gulp.src('src/*.js')
     .pipe(concat('index.js'))
-    .pipe(uglify())
     .pipe(gulp.dest('./build/'));
 
   done();
@@ -36,10 +34,16 @@ gulp.task('build:html', function(done) {
 
   done();
 });
-
+gulp.task('build', gulp.series(
+  'build:js',
+  'build:css',
+  'build:html',
+  function(done) {
+    done();
+  }));
 gulp.task('default', gulp.parallel('server', function(done) {
   gulp.watch(['index.html'], gulp.parallel('bs-reload'));
-  gulp.watch(['src/*.js'], gulp.parallel('bs-reload'));
+  gulp.watch(['src/*.js'], gulp.parallel('build:js', 'bs-reload'));
   gulp.watch(['src/**/*.css'], gulp.parallel('bs-reload'));
 }));
 
