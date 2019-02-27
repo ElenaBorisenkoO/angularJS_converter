@@ -10,29 +10,29 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.7/angular.js"></script>
+  <script src="//unpkg.com/@uirouter/angularjs/release/angular-ui-router.min.js"></script>
   <script src="build/index.js"></script>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/minty/bootstrap.min.css">
-  <style>
-    body {
-      padding: 50px 0;
-    }
-  </style>
-
+  <style>.active { color: #ef7479; font-weight: bold; }</style>
 </head>
 
 <body ng-app="myApp">
-        <div class="page-wrap d-flex flex-row align-items-center" style = "position: absolute;height: 100vh;width: 100vw;z-index: 4;background: #dedede" check-internet ng-hide='online'>
+        <div class="page-wrap d-flex flex-row align-items-center" 
+        style = "position: absolute;height: 100vh;width: 100vw;z-index: 4;background: #dedede" ng-hide='online'>
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-md-12 text-center">
-                        <span class="display-1 d-block">404</span>
-                        <div class="mb-4 lead">The page you are looking for was not found.</div>
-                        <a href="https://www.totoprayogo.com/#" class="btn btn-link">Back to Home</a>
+                        <span class="display-1 d-block">Whoops!</span>
+                        <div class="mb-4 lead">No Internet connection found. Check your connection or try again.</div>
+                        <a href="#" class="btn btn-link">Back to Home</a>
                     </div>
                 </div>
             </div>
         </div>
-  <currency-converter></currency-converter>
+        <a ui-sref="converter" ui-sref-active="active">Converter</a>
+    <a ui-sref="about" ui-sref-active="active">About</a>
+        <ui-view></ui-view>
+  <!-- <currency-converter></currency-converter> -->
 </body>
 
 </html>

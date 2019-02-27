@@ -37,6 +37,5 @@
       $scope.$watchGroup(['ctr.indicator', 'ctr.currencyFromAmmount'], () => {
         this.refreshOnDataChanged();
       });
-      // $scope.$watch('online', function(newStatus) { ... });
     }]);
 }());
