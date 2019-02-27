@@ -5,32 +5,40 @@
       this.indicator = true;
       this.currencyFromAmmount = 0;
       this.currencyToAmmount = 0;
-      this.currencyList = ['USD', 'EUR', 'RUR', 'BTC', 'UAH'];
-      this.persentagesList = converterConstants.persentagesList;
-      this.baseCurrency = this.currencyList[4];
-      this.targetCurrency = this.currencyList[0];
       this.data = rateService.getRates();
+      this.persentagesList = converterConstants.persentagesList;
+      this.baseCurrency = { ccy: 'Choose currency' };
+      this.targetCurrency = { ccy: 'Target currency' };
       this.fee = 0;
-      this.indicateToggle = function($event) {
-        this.indicator = !$event.currentTarget.firstElementChild.classList.contains('off');
-        rateService.calculateAmount();
+      this.tax = 0;
+
+      this.refreshOnDataChanged = function() {
+        const result = rateService.calculateAmount(this.baseCurrency, this.targetCurrency, this.currencyFromAmmount, this.indicator);
+        this.currencyToAmmount = result['count'];
+        this.rate = result.rate;
+        this.tax = rateService.computeFee(this.currencyToAmmount, this.fee, this.indicator);
       };
+
       this.changeTargetCurrency = function(item, target) {
-        if (target === this.baseCurrency) {
+        if (target.ccy === this.baseCurrency.ccy) {
           this.baseCurrency = item;
         } else {
           this.targetCurrency = item;
         }
-        rateService.calculateAmount();
-        console.log(rateService.rate);
-      };
-      this.changePersantage = function(elem) {
-        this.fee = elem;
-        rateService.calculateAmount();
+        this.refreshOnDataChanged();
       };
 
-      $scope.$watch('currencyFromAmmount', () => {
-        rateService.calculateAmount();
+      this.changePersantage = function(elem) {
+        this.fee = elem;
+        this.refreshOnDataChanged();
+      };
+
+      $scope.$watchGroup(['ctr.indicator', 'ctr.currencyFromAmmount'], () => {
+        this.refreshOnDataChanged();
       });
+      // $scope.$watch('ctr.indicator', () => {
+      //   this.currencyToAmmount = rateService.calculateAmount(this.baseCurrency, this.targetCurrency, this.currencyFromAmmount, this.indicator);
+      // });
+      // $scope.$watch('online', function(newStatus) { ... });
     }]);
 }());

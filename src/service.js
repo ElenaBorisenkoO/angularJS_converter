@@ -1,47 +1,34 @@
 /* global myApp, angular*/
 (function() {
   window.app.service('rateService', ['$http', function($http) {
-    this.currencyList = [];
-    this.rate = 0;
+    this.list = [];
     this.getRates = function() {
-      return $http({
-        method: 'GET',
-        url: 'https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5'
-      }).then(({ data }) => {
-        data.forEach(item => this.currencyList.push(item));
-        return this.currencyList;
+      $http.get('https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5')
+        .then(({ data }) => {
+          data.forEach(item => this.list.push(item));
+        });
+      return this.list;
+    };
+    this.computeRate = function(base, target) {
+      return base / target;
+    };
+    this.computeFee = function(data, fee, buy) {
+      const sign = buy ? 1 : -1;
+
+      return data * fee * sign / 100;
+    };
+
+    this.calculateAmount = function(currencyFrom, currencyTo, amount, buy) {
+      if (!currencyFrom.$$hashKey || !currencyTo.$$hashKey) {
+        return 0;
       }
-      );
-    };
-    this.calculate = function(base, rate) {
-      return base * rate;
-    };
-    this.convertRate = function(base, rate) {
-      return base / rate;
-    };
-    this.calculateAmount = function() {
-      this.currencyList.forEach(elem => {
-        if (elem.ccy === this.baseCurrency) {
-          const mode = !this.indicator ? 1 : -1;
 
-          if (this.targetCurrency === 'UAH') {
-            this.currencyToAmmount = !this.indicator ? this.currencyFromAmmount * elem.sale :
-              this.currencyFromAmmount * elem.buy;
-            this.rate = !this.indicator ? Math.round((elem.sale) * 1000) / 1000
-              : Math.round((elem.buy) * 1000) / 1000;
-          } else {
-            this.findElem = this.currencyList.find(el => el.ccy === this.targetCurrency);
-            const rate = this.indicator ? this.convertRate(elem.buy, this.findElem.buy) :
-              this.convertRate(elem.sale, this.findElem.sale);
-            this.rate = Math.round((rate) * 1000) / 1000;
-            this.currencyToAmmount = this.calculate(this.currencyFromAmmount, rate);
-          }
+      const rate = buy ? currencyFrom.buy / currencyTo.buy : currencyFrom.sale / currencyTo.sale;
 
-          if (this.fee !== 0) {
-            this.currencyToAmmount += (this.currencyToAmmount * this.fee * mode);
-          }
-        }
-      });
+      return {
+        rate,
+        'count': amount * rate
+      };
     };
   }]);
   window.app.constant('converterConstants', {
