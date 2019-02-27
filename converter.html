@@ -1,0 +1,46 @@
+<div class="container" ng-controller="myCtrl as ctr">
+    <div class="header">
+      <h1 class="display-4 text-center">Welcome to Currency Converter App</h1>
+    </div>
+    <div class="text-center m-5">
+      <input toggle-checkbox ng-model="ctr.indicator" data-on="SALE" data-off="BUY" data-onstyle="success"
+        data-offstyle="secondary" data-width="150" data-height="50" type="checkbox">
+    </div>
+    <div class="text-center m-3">
+      <h4>Rate: {{ctr.rate}}</h4>
+    </div>
+    <div class="input-group mb-2 text-left">
+      <div class="input-group-prepend">
+        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">{{ctr.baseCurrency.ccy}}</button>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="#" ng-repeat="item in ctr.data | currencyFilter:ctr.targetCurrency" 
+          ng-click="ctr.changeTargetCurrency(item, ctr.baseCurrency)">{{item.ccy}}</a>
+        </div>
+      </div>
+      <input type="number" class="form-control" aria-label="Text input with dropdown button"
+        ng-model="ctr.currencyFromAmmount">
+    </div>
+    <div class="input-group">
+      <input type="text" class="form-control" aria-label="Text input with dropdown button" 
+      value ="{{ctr.currencyToAmmount+ctr.tax}}" disabled>
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">{{ctr.targetCurrency.ccy}}</button>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="#" ng-repeat="item in ctr.data | currencyFilter:ctr.baseCurrency"
+            ng-click="ctr.changeTargetCurrency(item,ctr.targetCurrency)">{{item.ccy}}</a>
+        </div>
+      </div>
+    </div>
+    <div class="dropdown text-center m-2">
+      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        Comission {{ctr.fee}}%
+      </a>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <a class="dropdown-item" href="#" ng-repeat="elem in ctr.persentagesList"
+         ng-click="ctr.changePersantage(elem)">Commission {{elem}}%</a>
+      </div>
+    </div>
+  </div>

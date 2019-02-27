@@ -13,7 +13,8 @@
       this.tax = 0;
 
       this.refreshOnDataChanged = function() {
-        const result = rateService.calculateAmount(this.baseCurrency, this.targetCurrency, this.currencyFromAmmount, this.indicator);
+        const result = rateService.calculateAmount(this.baseCurrency, this.targetCurrency,
+          this.currencyFromAmmount, this.indicator);
         this.currencyToAmmount = result['count'];
         this.rate = result.rate;
         this.tax = rateService.computeFee(this.currencyToAmmount, this.fee, this.indicator);
@@ -36,9 +37,6 @@
       $scope.$watchGroup(['ctr.indicator', 'ctr.currencyFromAmmount'], () => {
         this.refreshOnDataChanged();
       });
-      // $scope.$watch('ctr.indicator', () => {
-      //   this.currencyToAmmount = rateService.calculateAmount(this.baseCurrency, this.targetCurrency, this.currencyFromAmmount, this.indicator);
-      // });
       // $scope.$watch('online', function(newStatus) { ... });
     }]);
 }());

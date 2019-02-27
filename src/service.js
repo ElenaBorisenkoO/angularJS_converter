@@ -3,10 +3,12 @@
   window.app.service('rateService', ['$http', function($http) {
     this.list = [];
     this.getRates = function() {
-      $http.get('https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5')
-        .then(({ data }) => {
-          data.forEach(item => this.list.push(item));
-        });
+      if (this.list.length === 0) {
+        $http.get('https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5')
+          .then(({ data }) => {
+            data.forEach(item => this.list.push(item));
+          });
+      }
       return this.list;
     };
     this.computeRate = function(base, target) {
