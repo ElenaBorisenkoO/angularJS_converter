@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta charset="utf-8">
   <title>Currency Converter</title>
@@ -15,24 +14,12 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/minty/bootstrap.min.css">
   <style>.active { color: #ef7479; font-weight: bold; }</style>
 </head>
-
 <body ng-app="myApp">
-        <div class="page-wrap d-flex flex-row align-items-center" 
-        style = "position: absolute;height: 100vh;width: 100vw;z-index: 4;background: #dedede" ng-hide='online'>
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-md-12 text-center">
-                        <span class="display-1 d-block">Whoops!</span>
-                        <div class="mb-4 lead">No Internet connection found. Check your connection or try again.</div>
-                        <a href="#" class="btn btn-link">Back to Home</a>
-                    </div>
-                </div>
-            </div>
+        <div ng-hide='online'>
+            <no-inet></no-inet>
         </div>
         <a ui-sref="converter" ui-sref-active="active">Converter</a>
-    <a ui-sref="about" ui-sref-active="active">About</a>
-        <ui-view></ui-view>
-  <!-- <currency-converter></currency-converter> -->
+    <a ui-sref="about" ui-sref-active="active">About</a>   
+        <ui-view></ui-view>             
 </body>
-
 </html>
